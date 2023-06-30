@@ -1,25 +1,25 @@
 from django.contrib import admin
-from .models import PropertyFeatures, PropertyLayouts, PropertyPartners, PropertyManagers, Property, PropertyType, \
-    PropertyImages
+from .models import Manager, Property, Type, Image, Layout, Feature, Partner
 
 
-@admin.register(PropertyFeatures)
-class PropertyFeaturesAdmin(admin.ModelAdmin):
+
+@admin.register(Feature)
+class FeatureAdmin(admin.ModelAdmin):
     ...
 
 
-@admin.register(PropertyLayouts)
-class PropertyLayoutsAdmin(admin.ModelAdmin):
+@admin.register(Layout)
+class LayoutAdmin(admin.ModelAdmin):
     ...
 
 
-@admin.register(PropertyPartners)
-class PropertyPartnersAdmin(admin.ModelAdmin):
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
     ...
 
 
-@admin.register(PropertyManagers)
-class PropertyManagersAdmin(admin.ModelAdmin):
+@admin.register(Manager)
+class ManagerAdmin(admin.ModelAdmin):
     ...
 
 
@@ -28,11 +28,11 @@ class PropertyAdmin(admin.ModelAdmin):
     ...
 
 
-@admin.register(PropertyType)
-class PropertyTypeAdmin(admin.ModelAdmin):
+@admin.register(Type)
+class TypeAdmin(admin.ModelAdmin):
     ...
 
 
-@admin.register(PropertyImages)
-class PropertyImagesAdmin(admin.ModelAdmin):
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
     ...
