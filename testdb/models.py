@@ -1,5 +1,7 @@
 from django.db import models
 
+from api_ikamet.models import Il, Ilce, Mahalle
+
 
 class Property(models.Model):
     external_id = models.CharField(verbose_name='Внешний id', max_length=10, unique=True)
@@ -8,9 +10,9 @@ class Property(models.Model):
     max_price_in_euro = models.IntegerField(verbose_name="Максимальная стоимость, €")
     latitude = models.DecimalField(max_digits=10, decimal_places=8, verbose_name="Широта WGS 84, градусы")
     longitude = models.DecimalField(max_digits=10, decimal_places=8, verbose_name="Долгота WGS 84, градусы")
-    il = models.IntegerField(verbose_name='Il')
-    ilce = models.IntegerField(verbose_name='Ilce')
-    mahalle = models.IntegerField(verbose_name='Mahalle')
+    il = models.ForeignKey(Il, on_delete=models.PROTECT, verbose_name='Il')
+    ilce = models.ForeignKey(Ilce, on_delete=models.PROTECT, verbose_name='Ilce')
+    mahalle = models.ForeignKey(Mahalle, on_delete=models.PROTECT, verbose_name='Mahalle')
     deal_types = models.CharField(verbose_name="Тип сделки", max_length=100)
     min_area_in_sq_meters = models.IntegerField(verbose_name="Минимальная площадь, м²", null=True, blank=True)
     max_area_in_sq_meters = models.IntegerField(verbose_name="Максимальная площадь, м²", null=True, blank=True)
@@ -24,8 +26,8 @@ class Property(models.Model):
     airport_distance = models.IntegerField(verbose_name="Расстояние до аэропорта", null=True, blank=True)
     url = models.CharField(verbose_name="URL-ссылка", max_length=1000)
     sold = models.BooleanField(verbose_name="Продано?", default=False)
-    partner = models.IntegerField(blank=True, null=True, verbose_name='Партнер', default=1)
-    manager = models.IntegerField(blank=True, null=True, verbose_name='Менеджер', default=4)
+    partner = models.ForeignKey('Partner', on_delete=models.PROTECT, blank=True, null=True, verbose_name='Партнер', default=1)
+    manager = models.ForeignKey('Manager', on_delete=models.PROTECT, blank=True, null=True, verbose_name='Менеджер', default=4)
     property_type = models.ForeignKey('Type', on_delete=models.PROTECT, blank=True, null=True, verbose_name='Тип недвижимости')
     layouts = models.ManyToManyField('Layout', blank=True, null=True, verbose_name='layouts')
     features = models.ManyToManyField('Feature', blank=True, null=True, verbose_name='features')
@@ -56,7 +58,8 @@ class Manager(models.Model):
     name = models.CharField(verbose_name='Имя менеджера', max_length=100)
     url_whatsapp = models.CharField(verbose_name='Ссылка на whatsapp', max_length=100)
     url_telegram = models.CharField(verbose_name='Ссылка на telegram', max_length=100, blank=True)
-    partner = models.IntegerField(verbose_name='Partner', blank=True, default=1)
+    partner = models.ForeignKey('Partner', on_delete=models.PROTECT, blank=True, verbose_name='Партнер',
+                                default=1)
     created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Дата изменения', auto_now=True)
 
